@@ -3,20 +3,23 @@ package com.example.tipcalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout layout;
     private EditText billTotalInput, tipAmountInput;
     private RadioButton onePerson, twoPerson, threePerson, fourPerson;
-    private TextView tipAmountOutput, billTotalOutput, totalPerPersonOutput;
+    private TextView preTipAmount, tipAmountOutput, billTotalOutput, totalPerPersonOutput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,31 +29,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFields() {
-        layout = findViewById(R.id.linear_layout);
         billTotalInput = findViewById(R.id.bill_amount_input);
         tipAmountInput = findViewById(R.id.tip_amount_input);
         onePerson = findViewById(R.id.one_person_button);
         twoPerson = findViewById(R.id.two_person_button);
         threePerson = findViewById(R.id.three_person_button);
         fourPerson = findViewById(R.id.four_person_button);
+        preTipAmount = findViewById(R.id.pretip_amount_output);
         tipAmountOutput = findViewById(R.id.tip_amount_output);
         billTotalOutput = findViewById(R.id.total_amount_output);
         totalPerPersonOutput = findViewById(R.id.eachperson_output);
     }
 
-    public void calculateTotal(View view) {
+    public void calculateTotal(View v) {
         try {
             double billTotalPreTip = Double.parseDouble(billTotalInput.getText().toString());
-            int tipPercentage = Integer.parseInt(tipAmountInput.getText().toString());
+            double tipPercentage = Double.parseDouble(tipAmountInput.getText().toString());
             double tipAmount = billTotalPreTip * (tipPercentage / 100);
             double totalBillCost = billTotalPreTip + tipAmount;
             double costPerPerson = getCostPerPerson(totalBillCost);
-            tipAmountOutput.setText("$" + tipAmount);
-            billTotalOutput.setText("$" + totalBillCost);
-            totalPerPersonOutput.setText("Each person would owe $" + costPerPerson);
+            preTipAmount.setText("$" + String.format("%.2f", billTotalPreTip));
+            tipAmountOutput.setText("$" + String.format("%.2f", tipAmount));
+            billTotalOutput.setText("$" + String.format("%.2f", totalBillCost));
+            totalPerPersonOutput.setText("Each person would owe $" + String.format("%.2f", costPerPerson));
         } catch (Exception e)
         {
-            Toast.makeText(layout.getContext(), "Error: Fill in all fields", Toast.LENGTH_LONG).show();
+
         }
     }
 

@@ -66,6 +66,7 @@
             android:text="Party Members:"/>
 
         <RadioGroup
+            android:id="@+id/radio_group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -104,18 +105,38 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/claculateTotalButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Calculate Total"
         android:onClick="calculateTotal"
-        android:padding="10dp"/>
+        android:text="Calculate"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@android:color/black" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Before tip ($):"/>
+
+        <TextView
+            android:id="@+id/pretip_amount_output"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:textStyle="bold"
+            android:text="$null"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
