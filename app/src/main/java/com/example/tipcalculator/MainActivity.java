@@ -47,26 +47,27 @@ public class MainActivity extends AppCompatActivity {
             double tipPercentage = Double.parseDouble(tipAmountInput.getText().toString());
             double tipAmount = billTotalPreTip * (tipPercentage / 100);
             double totalBillCost = billTotalPreTip + tipAmount;
-            double costPerPerson = getCostPerPerson(totalBillCost);
+            int personCount = getCostPerPerson();
+            double costPerPerson = totalBillCost / personCount;
             preTipAmount.setText("$" + String.format("%.2f", billTotalPreTip));
             tipAmountOutput.setText("$" + String.format("%.2f", tipAmount));
             billTotalOutput.setText("$" + String.format("%.2f", totalBillCost));
-            totalPerPersonOutput.setText("Each person would owe $" + String.format("%.2f", costPerPerson));
+            totalPerPersonOutput.setText("Each person(" + personCount + ") would owe $" + String.format("%.2f", costPerPerson));
         } catch (Exception e)
         {
 
         }
     }
 
-    private double getCostPerPerson(double totalBillCost) {
+    private int getCostPerPerson() {
         if(onePerson.isChecked()) {
-            return totalBillCost / 1;
+            return 1;
         } else if (twoPerson.isChecked()) {
-            return totalBillCost / 2;
+            return 2;
         } else if (threePerson.isChecked()) {
-            return totalBillCost / 3;
+            return 3;
         } else {
-            return totalBillCost / 4;
+            return 4;
         }
     }
 
